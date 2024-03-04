@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   mapR:
-    image: maprtech/dev-sandbox-container:6.2.0.0_7.0.0_ubuntu18
+    # image: maprtech/dev-sandbox-container:6.2.0.0_7.0.0_ubuntu18
+    image: maprtech/dev-sandbox-container:latest
     container_name: mapr
     hostname: maprdemo.mapr.io
     # network_mode: 'host'
@@ -9,6 +10,7 @@ services:
       MAPR_EXTERNAL: '0.0.0.0'
       clusterName: "maprdemo.mapr.io"
     ports:
+      - "8888:8888"
       - "9998:9998"
       - "8042:8042"
       - "8889:8888"
@@ -23,7 +25,7 @@ services:
       - "5660:5660"
       - "8443:8443"
       - "19888:19888"
-      - "50060:50060"
+      - "50061:50060"
       - "18080:18080"
       - "8032:8032"
       - "14000:14000"
@@ -58,3 +60,11 @@ services:
       - /tmp/maprdemo/logs:/opt/mapr/logs
       - /tmp/maprdemo/nfs:/mapr
       - ./:/home/mapr/lab_1
+    command:
+      - apt-get install python3-pip
+      - pip3 install --upgrade setuptools
+      - jupyter notebook --ip=0.0.0.0 --port=8888
+
+# apt-get install python3-pip
+# pip3 install --upgrade setuptools
+# jupyter notebook --ip=0.0.0.0 --port=8888
